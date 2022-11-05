@@ -20,7 +20,7 @@ const Home = () => {
         }
 
         fetchWorkouts();
-    }, []) //usefetch
+    }, [dispatch]) //usefetch
 
     return (
         <div className="home">
