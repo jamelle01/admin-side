@@ -33,27 +33,38 @@ header a {
 }
 /* homepage */
 .home {
+  background-color: rgba(255, 255, 255, 0.596);
   display: grid;
   grid-template-columns: 3fr 1fr;
-  gap: 100px;
+  padding: 20px;
+  gap: 10px;
 }
 .workout-details {
   background: #fff;
-  border-radius: 4px;
-  margin: 20px auto;
+  border-radius:50vw;
+  /* margin: 20px auto; */
   padding: 20px;
+  display:flex;
   position: relative;
   box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
 }
+.workout-details>*{
+  /* position: relative; */
+  width: 25%;
+  margin: auto;
+}
 .workout-details h4 {
-  margin: 0 0 10px 0;
+  /* margin: 0 0 10px 0; */
   font-size: 1.2em;
   color: var(--primary);
 }
 .workout-details p {
-  margin: 0;
+  /* margin: 0; */
   font-size: 0.9em;
   color: #555;
+}
+td{
+  background-color: rebeccapurple;
 }
 .workout-details span {
   position: absolute;
@@ -64,6 +75,14 @@ header a {
   padding: 6px;
   border-radius: 50%;
   color: #333;
+}
+
+.material-symbols-rounded {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
 }
 
 /* new workout form */

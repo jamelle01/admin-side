@@ -24,11 +24,11 @@ const Home = () => {
 
     return (
         <div className="home">
-            <div className="workouts">
+            <table className="workouts">
                 {workouts && workouts.map((workout) => (
                     <WorkoutDetails key={workout._id} workout={workout} />
                 ))}
-            </div>
+            </table>
             <WorkoutForm/>
         </div>
     ) // return
