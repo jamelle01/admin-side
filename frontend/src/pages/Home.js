@@ -26,12 +26,12 @@ const Home = () => {
     return (
         <div className="home">
             <div className="upper">
-                <p>LIST OF USERS</p>
+                <p className="semi-title">LIST OF USERS</p>
                 <Link to="/add">
-                <button>add user</button>
+                <button className="home-button add">add user</button>
                 </Link>
                 
-                <button>search</button>
+                <button className="home-button search">search</button>
             </div>
             
             <div className="workouts">

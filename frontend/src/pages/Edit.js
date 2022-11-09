@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useWorkoutsContext } from "../hooks/useWorkoutsContext";
 import { useEffect, useState} from "react";
+import { useNavigate } from "react-router-dom";
 
 const Edit = () => {
     // const {workouts, dispatch} = useWorkoutsContext();
@@ -12,6 +13,7 @@ const Edit = () => {
     const [reps, setReps] = useState('');
     const [error, setError] = useState(null);
     const [emptyFields, setEmptyFields] = useState([]);
+    const navigate = new useNavigate();
 
     useEffect(() => {
         const fetchWorkouts = async () => {
@@ -53,16 +55,16 @@ const Edit = () => {
             setEmptyFields([]);
             console.log("workout updated", json);
             // dispatch({type: 'CREATE_WORKOUT', payload: json});
-            // navigate("/");
+            navigate("/");
         }
         
     };
 
     return (  
         <div className="edit">
-            <h1>{id}</h1>
             <form onSubmit={handleSubmit}>
-                <h3>Add New</h3>
+                <h1>{id}</h1>
+                <h3>Edit User</h3>
 
                 <label htmlFor="title">Title: </label>
                 <input 
@@ -90,8 +92,11 @@ const Edit = () => {
                     value={reps}
                     className={emptyFields.includes('reps') ? 'error' : ''}
                 />
+                <div className="adedbuttons">
+                    <button className="update">Update</button>
+                    <button className="cancel">Cancel</button>
+                </div>
 
-                <button>Add Workout</button>
                 {error && <div className="error">{error}</div>}
             </form>
         </div>

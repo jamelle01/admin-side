@@ -75,8 +75,10 @@ const WorkoutForm = () => {
                     value={reps}
                     className={emptyFields.includes('reps') ? 'error' : ''}
                 />
-
-                <button>Add Workout</button>
+                <div className="adedbuttons">
+                    <button className="update">Update</button>
+                    <button className="cancel">Cancel</button>
+                </div>
                 {error && <div className="error">{error}</div>}
             </form>
         </div>
