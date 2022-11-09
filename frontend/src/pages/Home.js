@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useWorkoutsContext } from "../hooks/useWorkoutsContext";
+import {Link} from 'react-router-dom';
 
 // components
 import WorkoutDetails from '../components/WorkoutDetail';
@@ -24,12 +25,21 @@ const Home = () => {
 
     return (
         <div className="home">
+            <div className="upper">
+                <p>LIST OF USERS</p>
+                <Link to="/add">
+                <button>add user</button>
+                </Link>
+                
+                <button>search</button>
+            </div>
+            
             <div className="workouts">
                 {workouts && workouts.map((workout) => (
                     <WorkoutDetails key={workout._id} workout={workout} />
                 ))}
             </div>
-            <WorkoutForm/>
+            {/* <WorkoutForm/> */}
         </div>
     ) // return
 }

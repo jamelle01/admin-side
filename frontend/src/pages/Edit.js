@@ -1,24 +1,38 @@
-import { useState } from "react";
+import { useParams } from "react-router-dom";
 import { useWorkoutsContext } from "../hooks/useWorkoutsContext";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState} from "react";
 
-const WorkoutForm = () => {
-    // const {dispatch} = useWorkoutsContext();
+const Edit = () => {
+    // const {workouts, dispatch} = useWorkoutsContext();
+
+    const { id } = useParams();
 
     const [title, setTitle] = useState('');
     const [load, setLoad] = useState('');
     const [reps, setReps] = useState('');
     const [error, setError] = useState(null);
-    const [emptyFields, setEmptyFields] = useState([])
-    const navigate = useNavigate();
+    const [emptyFields, setEmptyFields] = useState([]);
+
+    useEffect(() => {
+        const fetchWorkouts = async () => {
+            const response = await fetch('/api/workouts/'+id);
+            const json = await response.json();
+            console.log(json);
+
+            setTitle(json.title);
+            setLoad(json.load);
+            setReps(json.reps);
+        }
+        fetchWorkouts();
+    },[]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const workout = {title, load, reps};
 
-        const response = await fetch('/api/workouts', { 
-            method: 'POST',
+        const response = await fetch(`/api/workouts/${id}`, { 
+            method: 'PATCH',
             body: JSON.stringify(workout),
             headers: {
                 'Content-Type': 'application/json' 
@@ -37,15 +51,16 @@ const WorkoutForm = () => {
             setReps('');
             setLoad('');
             setEmptyFields([]);
-            console.log("new workout added", json);
+            console.log("workout updated", json);
             // dispatch({type: 'CREATE_WORKOUT', payload: json});
-            navigate("/");
+            // navigate("/");
         }
         
     };
 
-    return (
-        <div className="create" >
+    return (  
+        <div className="edit">
+            <h1>{id}</h1>
             <form onSubmit={handleSubmit}>
                 <h3>Add New</h3>
 
@@ -80,7 +95,7 @@ const WorkoutForm = () => {
                 {error && <div className="error">{error}</div>}
             </form>
         </div>
-      );
+    );
 }
  
-export default WorkoutForm;
+export default Edit;

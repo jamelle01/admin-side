@@ -14,7 +14,7 @@ export const workoutsReducer = (state, action) => { // mipuli sa useState nga ho
       };
     case 'DELETE_WORKOUT':
       return {
-        workouts: state.workouts.filter((w) => w._id !== action.payload._id) // if true through it out from the array
+        workouts: state.workouts.filter((w) => w._id !== action.payload._id) // if true throw it out from the array
       };
     default:
       return state;
