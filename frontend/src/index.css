@@ -32,15 +32,24 @@ header a {
   margin: 0 auto;
 }
 /* homepage */
-.create, .edit {
+.home{
+  margin: auto 10vw;
+}
+.create, .edits {
   display: grid;
-  grid-template-columns: 1fr 3fr;
+  grid-template-columns: 2fr 3fr;
+  margin: auto 10vw;
+  background-color: rgba(255, 255, 255, 0.596);
+  padding: 20px;
+  gap: 10px;
+  border-radius: 20px;
 }
 .upper{
   display: grid;
   grid-template-columns: 20vw auto auto;
   align-items: center;
   color: white;
+  margin-bottom: -2vh;
 }
 .home-button{
   height: 5vh;
@@ -52,7 +61,7 @@ header a {
   text-transform: capitalize;
   font-weight: bold;
   font-size: 20px;
-  padding: 0 3vw;
+  padding: 0 2vw;
 }
 .search{
   /* position: flex; */
@@ -67,36 +76,53 @@ header a {
 .semi-title{
   font-size: 25px;
   font-weight: bold;
+  
 }
 
-.workouts {
+.heading{
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  margin-bottom: -40px;
+  color: rgb(216, 140, 0);
+  padding: 0 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  font-weight: 800;
+}
+.heading p{
+  margin-right: 8vw;
+  font-size: 20px;
+}
+
+.users {
   background-color: rgba(255, 255, 255, 0.596);
   padding: 20px;
   gap: 10px;
   border-radius: 20px;
 }
 
-.workout-details {
+.user-details {
   background: #fff;
   border-radius:50vw;
-  margin: 20px auto;
-  padding: 20px;
+  margin: 20px 0;
+  padding: 20px 0;
   display:flex;
   position: relative;
   box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
 }
-.workout-details>*{
+.user-details>*{
   /* position: relative; */
   width: 20%;
   margin: auto;
   /* background-color: rgb(255, 251, 0); */
 }
-.workout-details h4 {
+.user-details h4 {
   /* margin: 0 0 10px 0; */
   font-size: 1.2em;
-  color: var(--primary);
+  /* color: var(--primary); */
+  color: blue;
 }
-.workout-details p {
+.user-details p {
   font-size: 0.9em;
   color: #555;
 }
@@ -123,6 +149,7 @@ header a {
 .ed{
   text-decoration: none;
 }
+
 
 /* new workout form */
 label, input {
@@ -158,7 +185,7 @@ input {
   margin: 0 5%;
 }
 
-.update{ 
+.update, .addx{ 
   background-color: #4CAF50;
   color: white;
 
@@ -178,4 +205,9 @@ div.error {
 }
 input.error {
   border: 1px solid var(--error);
+}
+#link{
+  text-decoration: none;
+  color: blue;
+  margin: 4vw 0;
 }

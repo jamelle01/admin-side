@@ -1,41 +1,25 @@
-import { useParams } from "react-router-dom";
+import { useState } from "react";
 // import { useWorkoutsContext } from "../hooks/useWorkoutsContext";
-import { useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 
-const Edit = () => {
-    // const {workouts, dispatch} = useWorkoutsContext();
-
-    const { id } = useParams();
+const UserForm = () => {
+    // const {dispatch} = useWorkoutsContext();
 
     const [name, setName] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
-    const [emptyFields, setEmptyFields] = useState([]);
-    const navigate = new useNavigate();
-
-    useEffect(() => {
-        const fetchWorkouts = async () => {
-            const response = await fetch('/api/users/'+id);
-            const json = await response.json();
-            console.log(json);
-
-            setName(json.name);
-            setUsername(json.username);
-            setPassword(json.password);
-        }
-        fetchWorkouts();
-    },[]);
+    const [emptyFields, setEmptyFields] = useState([])
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const workout = {name, username, password};
+        const user = {name, username, password};
 
-        const response = await fetch(`/api/users/${id}`, { 
-            method: 'PATCH',
-            body: JSON.stringify(workout),
+        const response = await fetch('/api/users', { 
+            method: 'POST',
+            body: JSON.stringify(user),
             headers: {
                 'Content-Type': 'application/json' 
             }
@@ -53,18 +37,17 @@ const Edit = () => {
             setPassword('');
             setUsername('');
             setEmptyFields([]);
-            console.log("workout updated", json);
+            console.log("new user added", json);
             // dispatch({type: 'CREATE_WORKOUT', payload: json});
             navigate("/");
         }
         
     };
 
-    return (  
-        <div className="edits">
-            <form >
-                {/* <h1>{id}</h1> */}
-                <h3>Edit User</h3>
+    return (
+        <div className="create" >
+            <form>
+                <h3>Add New</h3>
 
                 <label htmlFor="name">Name: </label>
                 <input 
@@ -93,17 +76,13 @@ const Edit = () => {
                     className={emptyFields.includes('password') ? 'error' : ''}
                 />
                 <div className="adedbuttons">
-                    <button onClick={handleSubmit} className="update">Update</button>
-                    <button  onClick={() => {navigate("/");}} className="cancel">Cancel</button>
+                    <button className="addx" onClick={handleSubmit}>Add</button>
+                    <button onClick={() => {navigate("/")}}className="cancel">Cancel</button>
                 </div>
-
                 {error && <div className="error">{error}</div>}
             </form>
-            <div className="capture">
-                sd
-            </div>
         </div>
-    );
+      );
 }
  
-export default Edit;
+export default UserForm;

@@ -1,8 +1,8 @@
-import WorkoutForm from "../components/WorkoutForm";
+import UserForm from "../components/UserForm";
 
 const Add = () => {
     return (  
-        <WorkoutForm/>
+        <UserForm/>
     );
 }
  

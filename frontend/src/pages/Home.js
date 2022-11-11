@@ -1,22 +1,22 @@
 import { useEffect } from "react";
-import { useWorkoutsContext } from "../hooks/useWorkoutsContext";
+import { useUsersContext } from "../hooks/useUsersContext";
 import {Link} from 'react-router-dom';
 
 // components
-import WorkoutDetails from '../components/WorkoutDetail';
-import WorkoutForm from '../components/WorkoutForm';
+import UserDetails from '../components/UserDetail';
+// import WorkoutForm from '../components/WorkoutForm';
 
 
 const Home = () => {
-    const {workouts, dispatch} = useWorkoutsContext();
+    const {users, dispatch} = useUsersContext();
 
     useEffect( () => {
         const fetchWorkouts = async () => {
-            const response = await fetch('/api/workouts');
+            const response = await fetch('/api/users');
             const json = await response.json();
 
             if (response.ok){
-                dispatch({ type: 'SET_WORKOUTS', payload: json }); // this the action that gonna pyr in the workoutcontext
+                dispatch({ type: 'SET_USERS', payload: json }); // this the action that gonna pyr in the workoutcontext
             }
         }
 
@@ -27,16 +27,19 @@ const Home = () => {
         <div className="home">
             <div className="upper">
                 <p className="semi-title">LIST OF USERS</p>
-                <Link to="/add">
-                <button className="home-button add">add user</button>
-                </Link>
                 
+                <button className="home-button add"> <Link id="link" to="/add">add user </Link></button>
+               
                 <button className="home-button search">search</button>
             </div>
             
-            <div className="workouts">
-                {workouts && workouts.map((workout) => (
-                    <WorkoutDetails key={workout._id} workout={workout} />
+            <div className="users">
+                <div className="heading">
+                    <p>NAME</p>
+                    <p>USERNAME</p>
+                </div>
+                {users && users.map((user) => (
+                    <UserDetails key={user._id} user={user} />
                 ))}
             </div>
             {/* <WorkoutForm/> */}
