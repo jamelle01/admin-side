@@ -14,6 +14,10 @@ const userSchema = new Schema({
     password: {
         type: String,
         required: true
+    },
+    image: {
+        data: Buffer, // image will presented as binary
+        contentType: String
     }
 }, {timestamps: true})
 

@@ -18,6 +18,7 @@ const UserForm = () => {
         const user = {name, username, password};
 
         const response = await fetch('/api/users', { 
+            // encType: "multipart/form-data",
             method: 'POST',
             body: JSON.stringify(user),
             headers: {
@@ -75,6 +76,7 @@ const UserForm = () => {
                     value={password}
                     className={emptyFields.includes('password') ? 'error' : ''}
                 />
+                <input type="file" name="image"/>
                 <div className="adedbuttons">
                     <button className="addx" onClick={handleSubmit}>Add</button>
                     <button onClick={() => {navigate("/")}}className="cancel">Cancel</button>
