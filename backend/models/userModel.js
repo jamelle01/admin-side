@@ -15,7 +15,7 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    image: {
+    img: {
         data: Buffer, // image will presented as binary
         contentType: String
     }

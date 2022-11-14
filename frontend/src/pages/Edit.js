@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 // import { useWorkoutsContext } from "../hooks/useWorkoutsContext";
 import { useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Edit = () => {
     // const {workouts, dispatch} = useWorkoutsContext();
@@ -14,16 +15,18 @@ const Edit = () => {
     const [error, setError] = useState(null);
     const [emptyFields, setEmptyFields] = useState([]);
     const navigate = new useNavigate();
+    const [data, setData] = useState();
 
     useEffect(() => {
         const fetchWorkouts = async () => {
             const response = await fetch('/api/users/'+id);
             const json = await response.json();
-            console.log(json);
 
             setName(json.name);
             setUsername(json.username);
             setPassword(json.password);
+            setData(json.img);
+            console.log(JSON.stringify(json.img) + "hi")
         }
         fetchWorkouts();
     },[]);
@@ -92,6 +95,15 @@ const Edit = () => {
                     value={password}
                     className={emptyFields.includes('password') ? 'error' : ''}
                 />
+                {/* <div>
+                <h1>Image uploading react</h1>
+      {data.map((singleData) => {
+        const base64String = btoa(
+          String.fromCharCode(...new Uint8Array(singleData.img.data.data))
+        );
+        return <img alt="hife" src={`data:image/png;base64,${base64String}`} width="300"/>
+      })}
+                </div> */}
                 <div className="adedbuttons">
                     <button onClick={handleSubmit} className="update">Update</button>
                     <button  onClick={() => {navigate("/");}} className="cancel">Cancel</button>

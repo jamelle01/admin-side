@@ -47,7 +47,7 @@ const UserForm = () => {
 
     return (
         <div className="create" >
-            <form>
+            <form encType="multipart/form-data">
                 <h3>Add New</h3>
 
                 <label htmlFor="name">Name: </label>

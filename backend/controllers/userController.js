@@ -1,6 +1,9 @@
 const User = require('../models/userModel');
 const mongoose = require('mongoose');
 const fs = require('fs');
+
+const express = require('express');
+const app = express();
 // const {storage} = require('../routes/users');
 
 // const path = require('path');
@@ -72,6 +75,12 @@ const getUser = async (req, res) => {
 // }
 
 // delete
+
+
+// POST a new workout
+
+// //multer
+
 const deleteUser = async (req, res) => {
     const { id } = req.params
   

@@ -3,6 +3,13 @@ require('dotenv').config()
 const express = require ('express');
 const {router:userRoutes} = require('./routes/users');
 const mongoose = require('mongoose');
+const cloudinary = require('cloudinary').v2;
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET
+});
 
 //express app
 const app = express();
