@@ -5,19 +5,25 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
     name: {
         type: String,
-        required: true
+        // required: true
     },
     username: {
         type: String,
-        required: true
+        // required: true
     },
     password: {
         type: String,
-        required: true
+        // required: true
     },
     img: {
-        data: Buffer, // image will presented as binary
-        contentType: String
+        public_id: {
+            type: String,
+            required: true
+        },
+        url: {
+            type: String,
+            required: true
+        }
     }
 }, {timestamps: true})
 

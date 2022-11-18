@@ -3,7 +3,14 @@ require('dotenv').config()
 const express = require ('express');
 const {router:userRoutes} = require('./routes/users');
 const mongoose = require('mongoose');
+
 const cloudinary = require('cloudinary').v2;
+var bodyParser = require('body-parser'); 
+const cors = require('cors');
+const cookieParser = require('cookie-parser');
+
+//express app
+const app = express();
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
@@ -11,17 +18,23 @@ cloudinary.config({
   api_secret: process.env.API_SECRET
 });
 
-//express app
-const app = express();
+
 
 //middlewar
-app.use(express.json());
-
 app.use((req, res, next) =>{
     console.log(req.path, req.method)
     next();
 })
 
+app.use(bodyParser.json({limit: '100mb'}));
+app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+    limit: '100mb',
+    extended: true
+    }));
+
+
+app.use(cookieParser());
+app.use(cors());
 //routes
 app.use('/api/users', userRoutes);
 

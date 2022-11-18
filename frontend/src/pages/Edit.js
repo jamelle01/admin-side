@@ -25,7 +25,7 @@ const Edit = () => {
             setName(json.name);
             setUsername(json.username);
             setPassword(json.password);
-            setData(json.img);
+            setData(json.img.url);
             console.log(JSON.stringify(json.img) + "hi")
         }
         fetchWorkouts();
@@ -45,10 +45,11 @@ const Edit = () => {
 
         });
         const json = await response.json();
-
+console.log("hi")
         if (!response.ok){
             setError(json.error);
             setEmptyFields(json.emptyFields); // send json the empty fields
+            
         }
         if (response.ok){
             setError(null);
@@ -95,15 +96,10 @@ const Edit = () => {
                     value={password}
                     className={emptyFields.includes('password') ? 'error' : ''}
                 />
-                {/* <div>
-                <h1>Image uploading react</h1>
-      {data.map((singleData) => {
-        const base64String = btoa(
-          String.fromCharCode(...new Uint8Array(singleData.img.data.data))
-        );
-        return <img alt="hife" src={`data:image/png;base64,${base64String}`} width="300"/>
-      })}
-                </div> */}
+                <div className="imgsection">
+                <img  src={data} width="300" alt="" />
+                </div>
+                
                 <div className="adedbuttons">
                     <button onClick={handleSubmit} className="update">Update</button>
                     <button  onClick={() => {navigate("/");}} className="cancel">Cancel</button>

@@ -1,9 +1,14 @@
 const User = require('../models/userModel');
 const mongoose = require('mongoose');
-const fs = require('fs');
 
 const express = require('express');
 const app = express();
+
+const fs = require('fs')
+var path = require('path'); 
+var cloudinary = require('cloudinary').v2;
+
+
 // const {storage} = require('../routes/users');
 
 // const path = require('path');
@@ -33,57 +38,104 @@ const getUser = async (req, res) => {
 }
 
 // create new
-// const createUser = async (req, res) => {
+const createUser = async (req, res) => {
+  
+  console.log('heefeijf');
 
-//   // const {name, username, password} = req.body;
+  const {
+    name, 
+    username,
+    password, 
+    image
+  } = req.body;
+ let emptyFields = [] //for empty checks
 
-//   const obj = {
-//     name: req.body.name,
-//     username: req.body.username,
-//     password: req.body.password,
-//     img: {
-//       data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
-//       contentType: "image/png"
-//     }
-//   }
+  if(!name){
+    emptyFields.push('name');
+  }
+  if(!username){
+    emptyFields.push('username');
+  }
+  if(!password){
+    emptyFields.push('password');
+  }
+  if(emptyFields.length > 0){
+    return res.status(400).json({error: 'Please fill in all the fields', emptyFields});
+  }
+  cloudinary.uploader.upload(image,{
+    folder: "photos"
+  })
+  .then((result) => {
+    console.log("uploaded")
+    const obj = new User({
+      name,
+      username,
+      password,
+      img: {
+        public_id: result.public_id,
+        url: result.secure_url
+      }
+    });
+  
+    User.create(obj, (err, item) => {
+      if (err) {
+          console.log(err);
+      }
+      else {
+          // item.save();
+      }
+    });
+  })
+  .catch ((error) => {
+    res.status(400).json({error: error.message});
+  })
 
-//   console.log(obj.name);
+  console.log('done')
 
-//   let emptyFields = [] //for empty checks
+  // // const {name, username, password} = req.body;
 
-//   // if(!name){
-//   //   emptyFields.push('name');
-//   // }
-//   // if(!username){
-//   //   emptyFields.push('username');
-//   // }
-//   // if(!password){
-//   //   emptyFields.push('password');
-//   // }
-//   // if(emptyFields.length > 0){
-//   //   return res.status(400).json({error: 'Please fill in all the fields', emptyFields});
-//   // }
+  // const obj = {
+  //   name: req.body.name,
+  //   username: req.body.username,
+  //   password: req.body.password,
+  //   img: {
+  //     data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+  //     contentType: "image/png"
+  //   }
+  // }
 
-//   // add doc to db
-//   try {
-//     const user = await User.create(obj);
-//     res.status(200).json(user);
-//   } catch (error) {
-//     console.log('heloo')
-//     res.status(400).json({error: error.message});
-//   }
-// }
+  // console.log(obj.name);
 
-// delete
+  // let emptyFields = [] //for empty checks
 
+  // // if(!name){
+  // //   emptyFields.push('name');
+  // // }
+  // // if(!username){
+  // //   emptyFields.push('username');
+  // // }
+  // // if(!password){
+  // //   emptyFields.push('password');
+  // // }
+  // // if(emptyFields.length > 0){
+  // //   return res.status(400).json({error: 'Please fill in all the fields', emptyFields});
+  // // }
 
-// POST a new workout
+  // // add doc to db
+  // try {
+  //   const user = await User.create(obj);
+  //   res.status(200).json(user);
+  // } catch (error) {
+  //   console.log('heloo')
+  //   res.status(400).json({error: error.message});
+  // }
+}
 
-// //multer
-
+// delete user
 const deleteUser = async (req, res) => {
     const { id } = req.params
   
+    
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({error: 'No such user'});
     }
@@ -120,7 +172,7 @@ const updateUser = async (req, res) => {
 module.exports = {
     getUsers,
     getUser,
-    // createUser,
+    createUser,
     deleteUser,
     updateUser
   }

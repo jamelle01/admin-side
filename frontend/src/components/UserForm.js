@@ -9,39 +9,75 @@ const UserForm = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
-    const [emptyFields, setEmptyFields] = useState([])
+    const [emptyFields, setEmptyFields] = useState([]);
     const navigate = useNavigate();
+
+    const [image, setImage] = useState('');
+
+    const handleImage = (e) =>{
+        const file = e.target.files[0];
+        setFileToBase(file);
+        console.log(file);
+    }
+
+    const setFileToBase = (file) =>{
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () =>{
+            setImage(reader.result);
+        }
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        const user = {name, username, password};
-
-        const response = await fetch('/api/users', { 
-            // encType: "multipart/form-data",
+        
+        const user = {name, username, password, image};
+        console.log("clicked");
+        
+        fetch('/api/users/', {
             method: 'POST',
             body: JSON.stringify(user),
             headers: {
                 'Content-Type': 'application/json' 
             }
 
-        });
-        const json = await response.json();
+        })
+        .then((response) => {
+            if (!response.ok){
+                setError(json.error);
+                setEmptyFields(json.emptyFields); // send json the empty fields
+            }
+            if (response.ok){
+                setError(null);
+                setName('');
+                setPassword('');
+                setUsername('');
+                setEmptyFields([]);
+                console.log("new user added", json);
+                // dispatch({type: 'CREATE_WORKOUT', payload: json});
+                
+            }
+            
+            const json = response.json();
+        })
+        navigate('/');
+        console.log('hidsde')
+        
 
-        if (!response.ok){
-            setError(json.error);
-            setEmptyFields(json.emptyFields); // send json the empty fields
-        }
-        if (response.ok){
-            setError(null);
-            setName('');
-            setPassword('');
-            setUsername('');
-            setEmptyFields([]);
-            console.log("new user added", json);
-            // dispatch({type: 'CREATE_WORKOUT', payload: json});
-            navigate("/");
-        }
+        // if (!response.ok){
+        //     setError(json.error);
+        //     setEmptyFields(json.emptyFields); // send json the empty fields
+        // }
+        // if (response.ok){
+        //     setError(null);
+        //     setName('');
+        //     setPassword('');
+        //     setUsername('');
+        //     setEmptyFields([]);
+        //     console.log("new user added", json);
+        //     // dispatch({type: 'CREATE_WORKOUT', payload: json});
+        //     navigate('/');
+        // }
         
     };
 
@@ -76,7 +112,14 @@ const UserForm = () => {
                     value={password}
                     className={emptyFields.includes('password') ? 'error' : ''}
                 />
-                <input type="file" name="image"/>
+                <input type="file" 
+                    name="image" 
+                    id="formupload"
+                    onChange={handleImage}
+                />
+                <div>
+                <img className="img-fluid" src={image} width="300" alt="" />
+                </div>
                 <div className="adedbuttons">
                     <button className="addx" onClick={handleSubmit}>Add</button>
                     <button onClick={() => {navigate("/")}}className="cancel">Cancel</button>

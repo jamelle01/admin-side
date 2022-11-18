@@ -7,6 +7,7 @@ const Navbar = () => {
                 <Link to="/">
                     <h1>ADMIN CONTROL</h1>
                 </Link>
+                <h2>Logout</h2>
             </div>
         </header>
     )

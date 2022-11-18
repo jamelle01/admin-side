@@ -12,7 +12,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Navbar  />
-
+        <div id="bluebg"></div>
         <div className="pages">
           <Routes>
             <Route path='/' element= {<Home/>}/>
