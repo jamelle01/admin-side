@@ -58,10 +58,17 @@ const createUser = async (req, res) => {
   }
   if(!password){
     emptyFields.push('password');
+    console.log("passwordemp")
+  }
+  if(!image){
+    emptyFields.push('image');
+    console.log("passwordemp")
   }
   if(emptyFields.length > 0){
+    console.log('enter');
     return res.status(400).json({error: 'Please fill in all the fields', emptyFields});
   }
+  
   cloudinary.uploader.upload(image,{
     folder: "photos"
   })
@@ -133,40 +140,68 @@ const createUser = async (req, res) => {
 
 // delete user
 const deleteUser = async (req, res) => {
-    const { id } = req.params
-  
-    
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({error: 'No such user'});
-    }
-  
-    const user = await User.findOneAndDelete({_id: id});
-  
-    if(!user) {
-      return res.status(400).json({error: 'No such user'});
-    }
-  
-    res.status(200).json(user);
+  const { id } = req.params;
+  const user = await User.findById(req.params.id);//for image
+  const imgId = user.img.public_id;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({error: 'No such user'});
   }
-  
+
+  await cloudinary.uploader.destroy(imgId);
+  const rmUser = await User.findByIdAndDelete(req.params.id);
+
+  // const user = await User.findOneAndDelete({_id: id});
+  if(!rmUser) {
+    return res.status(400).json({error: 'No such user'});
+  }
+
+  res.status(200).json(user);
+}
+
 
 // update
 const updateUser = async (req, res) => {
-    const { id } = req.params;
-  
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({error: 'No such user'});
-    }
-  
-    const user = await User.findOneAndUpdate({_id: id}, {
-      ...req.body
-    });
-  
-    if (!user) {
-      return res.status(400).json({error: 'No such user'});
-    }
-  
-    res.status(200).json(user);
+
+  const {
+    name, 
+    username,
+    password, 
+    image
+  } = req.body;
+
+  let emptyFields = [] //for empty checks
+
+  if(!name){
+    emptyFields.push('name');
+  }
+  if(!username){
+    emptyFields.push('username');
+  }
+  if(!password){
+    emptyFields.push('password');
+    console.log("passwordemp")
+  }
+  if(emptyFields.length > 0){
+    console.log('enter');
+    return res.status(400).json({error: 'Please fill in all the fields', emptyFields});
+  }
+
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({error: 'No such user'});
+  }
+
+  const user = await User.findOneAndUpdate({_id: id}, {
+    ...req.body
+  });
+
+  if (!user) {
+    return res.status(400).json({error: 'No such user'});
+  }
+
+  res.status(200).json(user);
 }
 
 module.exports = {

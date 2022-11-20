@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from 'axios';
 // import { useWorkoutsContext } from "../hooks/useWorkoutsContext";
 import { useNavigate } from "react-router-dom";
 
@@ -34,18 +35,20 @@ const UserForm = () => {
         const user = {name, username, password, image};
         console.log("clicked");
         
-        fetch('/api/users/', {
+        const response = await fetch('/api/users/', {
             method: 'POST',
             body: JSON.stringify(user),
             headers: {
                 'Content-Type': 'application/json' 
             }
-
         })
-        .then((response) => {
+        const json = await response.json();
+        // .then((response) => {
+            console.log(response)
             if (!response.ok){
                 setError(json.error);
                 setEmptyFields(json.emptyFields); // send json the empty fields
+                console.log('not ok')
             }
             if (response.ok){
                 setError(null);
@@ -55,12 +58,12 @@ const UserForm = () => {
                 setEmptyFields([]);
                 console.log("new user added", json);
                 // dispatch({type: 'CREATE_WORKOUT', payload: json});
-                
+                navigate("/");
             }
             
-            const json = response.json();
-        })
-        navigate('/');
+            
+        // })
+        
         console.log('hidsde')
         
 
@@ -116,6 +119,7 @@ const UserForm = () => {
                     name="image" 
                     id="formupload"
                     onChange={handleImage}
+                    className={emptyFields.includes('image') ? 'error' : ''}
                 />
                 <div>
                 <img className="img-fluid" src={image} width="300" alt="" />

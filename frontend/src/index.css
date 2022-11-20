@@ -10,7 +10,9 @@ body {
   background: #2400f3a9;
   margin: 0;
   font-family: "Poppins";
-  background: url("./pic/background.jpg") 0% 0% / cover no-repeat; 
+  background: url("./pic/background.jpg"); 
+  background-repeat: no-repeat;
+  background-size: cover;
   backdrop-filter: hue-rotate(40deg);
 }
 #bluebg{
@@ -63,7 +65,7 @@ header a {
 }
 .upper{
   display: grid;
-  grid-template-columns: 20vw auto auto;
+  grid-template-columns: auto auto auto;
   align-items: center;
   color: white;
   margin-bottom: -2vh;
@@ -80,13 +82,16 @@ header a {
   font-size: 20px;
   padding: 0 2vw;
 }
-.search{
+/* .path1{ */
   /* position: flex; */
   /* justify-content: right;` */
   /* width: 10vw; */
   /* justify-content: right;
   justify-self: right; */
-}
+  /* float: right;
+  left: auto;
+  right: 0; */
+/* } */
 .add{
   justify-self: left;
 }
@@ -237,6 +242,8 @@ input.error {
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin-left: auto;
+  margin-right: 0;
 }
 #query {
   all: unset;

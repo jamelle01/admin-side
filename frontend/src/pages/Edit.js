@@ -34,22 +34,23 @@ const Edit = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const workout = {name, username, password};
+        const user = {name, username, password};
 
         const response = await fetch(`/api/users/${id}`, { 
             method: 'PATCH',
-            body: JSON.stringify(workout),
+            body: JSON.stringify(user),
             headers: {
                 'Content-Type': 'application/json' 
             }
 
         });
         const json = await response.json();
-console.log("hi")
+        console.log("hi");
+        
         if (!response.ok){
             setError(json.error);
             setEmptyFields(json.emptyFields); // send json the empty fields
-            
+            console.log('not ok')
         }
         if (response.ok){
             setError(null);
@@ -65,8 +66,8 @@ console.log("hi")
     };
 
     return (  
-        <div className="edits">
-            <form >
+        <div className="edits" >
+            <form encType="multipart/form-data">
                 {/* <h1>{id}</h1> */}
                 <h3>Edit User</h3>
 
