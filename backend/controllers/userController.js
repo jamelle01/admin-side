@@ -111,7 +111,7 @@ const deleteUser = async (req, res) => {
 
   // const user = await User.findOneAndDelete({_id: id});
   if (!rmUser) {
-    return res.status(400).json({ error: "No such user" });
+    return "fuct"
   }
 
   res.status(200).json(user);
@@ -120,8 +120,6 @@ const deleteUser = async (req, res) => {
 // update
 const updateUser = async (req, res) => {
   const { name, username, password, image } = req.body;
-
-  let emptyFields = []; //for empty checksfefefefefe
 
   if (!name) {
     emptyFields.push("name");
