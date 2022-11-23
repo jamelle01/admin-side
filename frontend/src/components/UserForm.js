@@ -127,7 +127,7 @@ const UserForm = () => {
                     className={emptyFields.includes('image') ? 'error' : ''}
                 />
                 <div className="imgsection">
-                    <img className="img-fluid" src={image} width="300" alt="" />
+                    <img className="img-fluid" src={image} width="500" alt="" />
                 </div>
                 <div className="adedbuttons">
                     <button className="addx" onClick={handleSubmit}>Add</button>

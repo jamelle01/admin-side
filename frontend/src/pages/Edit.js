@@ -116,7 +116,7 @@ const Edit = () => {
           onChange={handleImage}
         />
         <div className='imgsection'>
-          <img src={image} width='300' alt='' />
+          <img src={image} width='500' alt='' />
         </div>
 
         <div className='adedbuttons'>
