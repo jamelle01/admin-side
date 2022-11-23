@@ -121,9 +121,32 @@ const deleteUser = async (req, res) => {
 const updateUser = async (req, res) => {
   const { name, username, password, image } = req.body;
 
+  let emptyFields = []; //for empty checksilog
+
   if (!name) {
     emptyFields.push("name");
   }
+  if (!username) {
+    emptyFields.push("username");
+  }
+  if (!password) {
+    emptyFields.push("password");
+    console.log("passwordemp");
+  }
+  if (emptyFields.length > 0) {
+    return res
+      .status(400)
+      .json({ error: "Please fill in all the fields", emptyFields });
+  }
+
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: "No such user" });
+  }
+
+  cloudinary.uploader
+    .upload(image, {
       folder: `photos/${name}`,
       public_id: "1",
     })
