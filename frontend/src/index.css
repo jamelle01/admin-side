@@ -73,7 +73,7 @@ header a {
 .home-button{
   height: 5vh;
   text-decoration: none;
-  background-color: orange;
+  background-color: rgb(248, 127, 13);
   border-radius: 50px;
   border: 0px;
   color: blue;
@@ -103,16 +103,16 @@ header a {
 
 .heading{
   display: grid;
-  grid-template-columns: auto auto auto auto;
+  grid-template-columns: 10% 20% 20% 20% 15% 15%;
   margin-bottom: -40px;
   color: rgb(216, 140, 0);
   padding: 0 20px;
-  margin-left: 20px;
+  /* margin-left: 2vw; */
   margin-right: 20px;
   font-weight: 800;
 }
 .heading p{
-  margin-right: 8vw;
+  /* margin-right: 8vw; */
   font-size: 20px;
 }
 
@@ -125,23 +125,22 @@ header a {
 
 .user-details {
   background: #fff;
-  border-radius:50vw;
+  border-radius:30px;
   margin: 20px 0;
   padding: 20px 0;
-  display:flex;
-  position: relative;
+  display: grid;
+  grid-template-columns: 10% 20% 20% 20% 15% 15%;
+  /* position: relative; */
   box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
 }
 .user-details>*{
   /* position: relative; */
-  width: 20%;
-  margin: auto;
+  /* width: 20%; */
+  margin: auto 0; 
   /* background-color: rgb(255, 251, 0); */
 }
 .user-details h4 {
-  /* margin: 0 0 10px 0; */
   font-size: 1.2em;
-  /* color: var(--primary); */
   color: blue;
 }
 .user-details p {
@@ -152,9 +151,10 @@ header a {
 .material-symbols-sharp {
   /* position: relative; */
   cursor: pointer;
-  margin: 0 12px;
+  /* margin: 0 12px; */
   /* background: #f1f1f1; */
   padding: 6px;
+  margin: auto;
   border-radius: 50%;
   width: 2%;
 }
@@ -271,4 +271,17 @@ svg {
   width: 24px;
   height: 24px;
   padding: 10px;
+}
+.users {
+  list-style-type: none;
+  counter-reset: css-counter 0; /* initializes counter to 0; use -1 for zero-based numbering */
+}
+
+.users .num{
+  margin-left: 2vw;
+  counter-increment: css-counter 1; /* Increase the counter by 1. */
+}
+
+.users .num:before {
+  content: counter(css-counter) ". "; /* Apply counter before children's content. */
 }

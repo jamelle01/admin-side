@@ -5,6 +5,10 @@ import { useNavigate } from "react-router-dom";
 
 const UserForm = () => {
     // const {dispatch} = useWorkoutsContext();
+    // pls open webcam
+
+    // pls invert a binary tree
+    
 
     const [name, setName] = useState('');
     const [username, setUsername] = useState('');
@@ -42,24 +46,25 @@ const UserForm = () => {
                 'Content-Type': 'application/json' 
             }
         })
+        console.log('wait')
         const json = await response.json();
         // .then((response) => {
-            console.log(response)
-            if (!response.ok){
-                setError(json.error);
-                setEmptyFields(json.emptyFields); // send json the empty fields
-                console.log('not ok')
-            }
-            if (response.ok){
-                setError(null);
-                setName('');
-                setPassword('');
-                setUsername('');
-                setEmptyFields([]);
-                console.log("new user added", json);
-                // dispatch({type: 'CREATE_WORKOUT', payload: json});
-                navigate("/");
-            }
+        
+        if (!response.ok){
+            setError(json.error);
+            setEmptyFields(json.emptyFields); // send json the empty fields
+            console.log('not ok')
+        }
+        if (response.ok){
+            setError(null);
+            setName('');
+            setPassword('');
+            setUsername('');
+            setEmptyFields([]);
+            console.log("new user added", json);
+            // dispatch({type: 'CREATE_WORKOUT', payload: json});
+            navigate("/");
+        }
             
             
         // })
@@ -121,8 +126,8 @@ const UserForm = () => {
                     onChange={handleImage}
                     className={emptyFields.includes('image') ? 'error' : ''}
                 />
-                <div>
-                <img className="img-fluid" src={image} width="300" alt="" />
+                <div className="imgsection">
+                    <img className="img-fluid" src={image} width="300" alt="" />
                 </div>
                 <div className="adedbuttons">
                     <button className="addx" onClick={handleSubmit}>Add</button>
