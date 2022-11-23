@@ -121,7 +121,7 @@ const deleteUser = async (req, res) => {
 const updateUser = async (req, res) => {
   const { name, username, password, image } = req.body;
 
-  let emptyFields = []; //for empty checks
+  let emptyFields = []; //for empty checksfefefefefe
 
   if (!name) {
     emptyFields.push("name");
