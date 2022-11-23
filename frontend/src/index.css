@@ -82,16 +82,6 @@ header a {
   font-size: 20px;
   padding: 0 2vw;
 }
-/* .path1{ */
-  /* position: flex; */
-  /* justify-content: right;` */
-  /* width: 10vw; */
-  /* justify-content: right;
-  justify-self: right; */
-  /* float: right;
-  left: auto;
-  right: 0; */
-/* } */
 .add{
   justify-self: left;
 }
@@ -173,7 +163,7 @@ header a {
 }
 
 
-/* new workout form */
+/*  form */
 label, input {
   display: block;
 }
@@ -186,15 +176,6 @@ input {
   border-radius: 4px;
   box-sizing: border-box;
 }
-/* form button {
-  background: var(--primary);
-  border: 0;
-  color: #fff;
-  padding: 10px;
-  font-family: "Poppins";
-  border-radius: 4px;
-  cursor: pointer;
-} */
 
 .adedbuttons button{
   border: 0;
@@ -284,4 +265,9 @@ svg {
 
 .users .num:before {
   content: counter(css-counter) ". "; /* Apply counter before children's content. */
+}
+
+#formupload{
+  width: 15vw;
+  margin: auto ;
 }
