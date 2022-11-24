@@ -72,7 +72,7 @@ const Edit = () => {
       setUsername("");
       setEmptyFields([]);
       console.log("workout updated", json);
-      // dispatch({type: 'CREATE_WORKOUT', payload: json});
+      // dispatch({type: 'CREATE_WORKOUT', payload: json});/
       navigate("/");
     }
   };

@@ -36,7 +36,7 @@ const getUser = async (req, res) => {
   res.status(200).json(user);
 };
 
-// create new
+// create new router
 const createUser = async (req, res) => {
   const { name, username, password, image } = req.body;
 
@@ -64,12 +64,13 @@ const createUser = async (req, res) => {
   }
   console.log(image);
 
-  cloudinary.uploader
+
+  cloudinary.uploader // promise upload sa cloud storage
     .upload(image, {
       folder: `photos/${name}`,
       public_id: "1",
     })
-    .then((result) => {
+    .then((result) => { //UPLOAD SA DATABASE MONGODB
       console.log("uploaded");
       const obj = new User({
         name,
@@ -98,9 +99,9 @@ const createUser = async (req, res) => {
 
 // delete user
 const deleteUser = async (req, res) => {
-  const { id } = req.params;
-  const user = await User.findById(req.params.id); //for image
-  const imgId = user.img.public_id;
+  const { id } = req.params; // ID SA USER NA DELETON
+  const user = await User.findById(req.params.id); //ID USER
+  const imgId = user.img.public_id;  // ID SA IMAGE
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ error: "No such user" });

@@ -2,8 +2,9 @@ import { createContext, useReducer } from 'react';
 
 export const UsersContext = createContext();
 
+// mao gamit na code para mag update ang display like nighuman add 
 export const usersReducer = (state, action) => { // mipuli sa useState nga hook state=current then action mao ang set 
-  switch (action.type) {
+  switch (action.type) {              
     case 'SET_USERS':
       return { 
         users: action.payload 

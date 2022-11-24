@@ -4,11 +4,7 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
 const UserForm = () => {
-    // const {dispatch} = useWorkoutsContext();
-    // pls open webcam
-
-    // pls invert a binary tree
-    
+    // const {dispatch} = useWorkoutsContext();    
 
     const [name, setName] = useState('');
     const [username, setUsername] = useState('');
@@ -39,14 +35,14 @@ const UserForm = () => {
         const user = {name, username, password, image};
         console.log("clicked");
         
-        const response = await fetch('/api/users/', {
+        const response = await fetch('/api/users/', { // fetch sa backend nya post
             method: 'POST',
             body: JSON.stringify(user),
             headers: {
                 'Content-Type': 'application/json' 
             }
         })
-        console.log('wait')
+        console.log('wait');
         const json = await response.json();
         // .then((response) => {
         
@@ -55,7 +51,7 @@ const UserForm = () => {
             setEmptyFields(json.emptyFields); // send json the empty fields
             console.log('not ok')
         }
-        if (response.ok){
+        if (response.ok){ // reset mga display field
             setError(null);
             setName('');
             setPassword('');
@@ -66,31 +62,10 @@ const UserForm = () => {
             navigate("/");
         }
             
-            
-        // })
-        
-        console.log('hidsde')
-        
-
-        // if (!response.ok){
-        //     setError(json.error);
-        //     setEmptyFields(json.emptyFields); // send json the empty fields
-        // }
-        // if (response.ok){
-        //     setError(null);
-        //     setName('');
-        //     setPassword('');
-        //     setUsername('');
-        //     setEmptyFields([]);
-        //     console.log("new user added", json);
-        //     // dispatch({type: 'CREATE_WORKOUT', payload: json});
-        //     navigate('/');
-        // }
-        
     };
 
     return (
-        <div className="create" >
+        <div className="create" > {/*mao input field if mag add user*/}
             <form encType="multipart/form-data">
                 <h3>Add New</h3>
 

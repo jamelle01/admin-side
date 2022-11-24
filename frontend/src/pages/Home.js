@@ -56,7 +56,7 @@ const Home = () => {
                 {users && users.filter((user) => 
                     user.name.toLowerCase().includes(query) || user.username.toLowerCase().includes(query)
                     ).map((user) => (
-                    <UserDetails key={user._id} user={user} />
+                    <UserDetails key={user._id} user={user} /> // 
                 ))}
             </div>
             {/* <WorkoutForm/> */}
