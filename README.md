@@ -5,10 +5,15 @@ npm install first after download
 ## open terminal
 
 ### open 2 terminal powershell or any
+
 on first terminal
-- type: *cd backend*
-- and: *npm run dev*
+
+- type: _cd backend_
+- and: _npm run dev_
 
 on second terminal
-- type: *cd frontend*
-- and: *npm run start*
+
+- type: _cd frontend_
+- and: _npm run start_
+
+-pushed 11/24/2022 3:23
