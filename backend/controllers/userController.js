@@ -111,9 +111,6 @@ const deleteUser = async (req, res) => {
   const rmUser = await User.findByIdAndDelete(req.params.id);
 
   // const user = await User.findOneAndDelete({_id: id});
-  if (!rmUser) {
-    return "fuct"
-  }
 
   res.status(200).json(user);
 };
