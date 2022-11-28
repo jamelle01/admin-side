@@ -4,17 +4,12 @@ const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
 
-const fs = require("fs");
 var path = require("path");
 var cloudinary = require("cloudinary").v2;
 
-// const {storage} = require('../routes/users');
-
-// const path = require('path');
-
 // get all
 const getUsers = async (req, res) => {
-  const users = await User.find({}).sort({ createdAt: -1 });
+  const users = await User.find({}).sort({ updatedAt: -1 });
 
   res.status(200).json(users);
 };
@@ -86,7 +81,6 @@ const createUser = async (req, res) => {
         if (err) {
           console.log(err);
         } else {
-          // item.save();
           console.log("done");
           res.status(200).json(obj);
         }
@@ -107,10 +101,8 @@ const deleteUser = async (req, res) => {
     return res.status(400).json({ error: "No such user" });
   }
 
-  await cloudinary.uploader.destroy(imgId);
-  const rmUser = await User.findByIdAndDelete(req.params.id);
-
-  // const user = await User.findOneAndDelete({_id: id});
+  await cloudinary.uploader.destroy(imgId); // delete the image from the cloudstorage
+  const rmUser = await User.findByIdAndDelete(req.params.id); // delete data in database
 
   res.status(200).json(user);
 };
@@ -143,12 +135,13 @@ const updateUser = async (req, res) => {
     return res.status(400).json({ error: "No such user" });
   }
 
+  // promise to upload
   cloudinary.uploader
     .upload(image, {
       folder: `photos/${name}`,
       public_id: "1",
-    })
-    .then(async (result) => {
+    }) //this return the result of uploading image
+    .then(async (result) => { // update the database
       console.log("uploaded");
       const user = await User.findOneAndUpdate(
         { _id: id },
@@ -168,18 +161,6 @@ const updateUser = async (req, res) => {
       res.status(400).json({ error: error.message });
     });
 
-  // const user = await User.findOneAndUpdate(
-  //   { _id: id },
-  //   {
-  //     ...req.body,
-  //   }
-  // );
-
-  // if (!user) {
-  //   return res.status(400).json({ error: "No such user" });
-  // }
-
-  // res.status(200).json(user);
 };
 
 module.exports = {

@@ -31,7 +31,7 @@ const Home = () => {
                 
                 <button className="home-button add"> <Link id="link" to="/add">add user </Link></button>
                
-                <form id="form"> 
+                <form id="searchform"> 
                     <input type="search" 
                     id="query" 
                     name="q" 
@@ -46,7 +46,7 @@ const Home = () => {
             
             <div className="users">
                 <div className="heading">
-                    <p></p>
+                    <p className="hnum">#</p>
                     <p>NAME</p>
                     <p>USERNAME</p>
                     <p></p>

@@ -1,11 +1,9 @@
-import { useState } from "react";
-import axios from "axios";
-// import { useWorkoutsContext } from "../hooks/useWorkoutsContext";
+import { useState, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Add = () => {
-    // const {dispatch} = useWorkoutsContext();
+import Webcam from "react-webcam";
 
+const Add = () => {
     const [name, setName] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -13,7 +11,35 @@ const Add = () => {
     const [emptyFields, setEmptyFields] = useState([]);
     const navigate = useNavigate();
 
+    //image
+    const webcamRef = useRef(null);
     const [image, setImage] = useState("");
+    const [openCamera, setOpenCamera] = useState(false);
+
+    //camera things
+    const capture = useCallback(
+        (e) => {
+            e.preventDefault();
+
+            const imageSrc = webcamRef.current.getScreenshot();
+            setImage(imageSrc);
+            setOpenCamera(false);
+        },
+        [webcamRef, image]
+    );
+
+    const camera = (e) => {
+        e.preventDefault();
+
+        setOpenCamera(true);
+    };
+
+    const cameraClose = () => {
+        setOpenCamera(false);
+        const video = document.querySelector("video");
+
+        openCamera(false);
+    };
 
     const handleImage = (e) => {
         const file = e.target.files[0];
@@ -67,9 +93,8 @@ const Add = () => {
 
     return (
         <div className='create'>
-            {" "}
             {/*mao input field if mag add user*/}
-            <form encType='multipart/form-data'>
+            <form className='inputform' encType='multipart/form-data'>
                 <h3>Add New</h3>
 
                 <label htmlFor='name'>Name: </label>
@@ -98,16 +123,44 @@ const Add = () => {
                     value={password}
                     className={emptyFields.includes("password") ? "error" : ""}
                 />
-                <input
-                    type='file'
-                    name='image'
-                    id='formupload'
-                    onChange={handleImage}
-                    className={emptyFields.includes("image") ? "error" : ""}
-                />
-                
+                <div className='imgbtns'>
+                    <input
+                        type='file'
+                        name='image'
+                        id='formupload'
+                        onChange={handleImage}
+                        accept='image/jpeg'
+                        className={emptyFields.includes("image") ? "error" : ""}
+                    />
+                    <span>or</span>
+                    <button onClick={camera}>Open camera</button>
+                </div>
+
+                <div>
+                    {openCamera && (
+                        <div className='camera'>
+                            <span
+                                className='exit material-symbols-outlined'
+                                onClick={cameraClose}
+                            >
+                                close
+                            </span>
+                            <Webcam
+                                className='webcam'
+                                audio={false}
+                                ref={webcamRef}
+                                screenshotFormat='image/jpeg'
+                            />
+                            <button className='capture' onClick={capture}>
+                                <span class='material-symbols-outlined'>
+                                    photo_camera
+                                </span>
+                            </button>
+                        </div>
+                    )}
+                </div>
                 <div className='imgsection'>
-                    <img className='img-fluid' src={image} width='500' alt='' />
+                    <img className='img-fluid' src={image} alt='' />
                 </div>
                 <div className='adedbuttons'>
                     <button className='addx' onClick={handleSubmit}>

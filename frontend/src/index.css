@@ -16,6 +16,12 @@ body {
   background-size: cover;
   background-attachment: fixed;
 }
+.App{
+  margin: 0 auto;
+  justify-content: center;
+  align-content: center;
+  overflow: hidden;
+}
 #bluebg{
   position: fixed;
   top: 0;
@@ -51,20 +57,7 @@ header a {
 .home{
   margin: auto 10vw;
 }
-.create, .edits {
-  display: grid;
-  /* grid-template-columns: 2fr 3fr; */
-  margin: auto 18vw;
-  background-color: rgba(255, 255, 255, 0.596);
-  padding: 20px;
-  gap: 10px;
-  border-radius: 20px;
-}
-.imgsection{
-  display: grid;
-  justify-items: center;
-  margin:   2vh;
-}
+
 .upper{
   display: grid;
   grid-template-columns: auto auto auto;
@@ -72,6 +65,8 @@ header a {
   color: white;
   margin-bottom: -2vh;
 }
+
+/* add button */
 .home-button{
   height: 5vh;
   text-decoration: none;
@@ -84,28 +79,30 @@ header a {
   font-size: 20px;
   padding: 0 2vw;
 }
+
 .add{
   justify-self: left;
 }
+
 .semi-title{
   font-size: 25px;
   font-weight: bold;
-  
 }
 
 .heading{
   display: grid;
   grid-template-columns: 10% 20% 20% 20% 15% 15%;
-  margin-bottom: -40px;
-  color: rgb(216, 140, 0);
-  padding: 0 20px;
-  /* margin-left: 2vw; */
-  margin-right: 20px;
-  font-weight: 800;
+  margin-bottom: -30px;
 }
+
+.hnum{
+  margin-left: 2vw;
+}
+
 .heading p{
-  /* margin-right: 8vw; */
   font-size: 20px;
+  color: blue;
+  font-weight: bold;
 }
 
 .users {
@@ -122,14 +119,10 @@ header a {
   padding: 20px 0;
   display: grid;
   grid-template-columns: 10% 20% 20% 20% 15% 15%;
-  /* position: relative; */
   box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
 }
 .user-details>*{
-  /* position: relative; */
-  /* width: 20%; */
   margin: auto 0; 
-  /* background-color: rgb(255, 251, 0); */
 }
 .user-details h4 {
   font-size: 1.2em;
@@ -141,15 +134,13 @@ header a {
 }
 
 .material-symbols-sharp {
-  /* position: relative; */
   cursor: pointer;
-  /* margin: 0 12px; */
-  /* background: #f1f1f1; */
   padding: 6px;
   margin: auto;
   border-radius: 50%;
   width: 2%;
 }
+
 .material-symbols-sharp:active{
   filter: invert(1);
 }
@@ -164,19 +155,110 @@ header a {
   text-decoration: none;
 }
 
-
-/*  form */
-label, input {
-  display: block;
+/* add and edit form */
+.inputform {
+  width: 400px;
+  display: grid;
+  grid-template-columns: auto;
+  margin: auto;
+  background-color: rgba(255, 255, 255, 0.596);
+  padding: 20px;
+  gap: 10px;
+  border-radius: 20px;
 }
+
 input {
+  margin-left: 2px; 
+  margin-right: 2px;
   padding: 10px;
-  margin-top: 10px;
-  margin-bottom: 20px;
-  width: 100%;
-  border: 1px solid #ddd;
+  border: 1px solid rgb(255, 255, 255);
   border-radius: 4px;
-  box-sizing: border-box;
+}
+
+/* button for adding image */
+.imgbtns{
+  display: grid;
+  grid-template-columns: 40% auto 40%;
+  align-content: center;
+  text-align: center;
+  align-items: center;
+}
+
+.imgbtns *:not(span){
+  background-color: yellow;
+  border: 1px solid rgb(255, 255, 255);
+  padding: 10px 0;
+  background-color: rgba(255, 255, 255, 0.596);
+  border-radius: 8px;
+}
+
+.imgsection img{
+  margin-left: 2px; 
+  margin-right: 2px;
+  position: relative;
+  width: 400px;
+}
+
+/* camera */
+.camera{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-row: auto;
+  align-items: center;
+  background-color: rgba(0,0,0,0.9);
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.camera .capture{
+  display: grid;
+  margin: 50vh 0 0 46.7%;
+  position: absolute;
+  /* width: 100%; */
+  /* top: 70%;
+  left: 45%; */
+  padding: 20px;
+  background-color: rgba(85, 85, 85, 0.397);
+  border-radius: 50px;
+  border: 1px solid rgb(248, 248, 248);
+}
+
+.camera .capture:hover{
+  cursor: pointer;
+  background-color: rgba(144, 144, 144, 0.56);
+}
+
+.camera .capture:active{
+  background-color: white;
+  transform: scale(110%);
+}
+
+.exit{
+  position:absolute;
+  color: white;
+  top: 10px;
+  left: 10px;
+  font-size: 50px;
+}
+
+.exit:hover{
+  cursor: pointer;
+}
+
+.webcam{
+  border: 1px solid white;
+}
+
+/* buttons add, update and cancel */
+.adedbuttons{
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 10px;
 }
 
 .adedbuttons button{
@@ -186,20 +268,19 @@ input {
   font-size: 18px;
   border-radius: 4px;
   cursor: pointer;
-  width: 40%;
-  margin: 0 5%;
 }
 
 .update, .addx{ 
   background-color: #4CAF50;
   color: white;
-
 }
+
 .cancel{
   background-color: orangered;
   color:white;
 }
 
+/* errorn handling */
 div.error {
   padding: 10px;
   background: #ffefef;
@@ -217,7 +298,10 @@ input.error {
   margin: 4vw 0;
 }
 
-#form {
+/* search div */
+#searchform {
+  display: grid;
+  grid-template-columns: auto;
   background-color: rgb(248, 127, 13);
   width: 300px;
   height: 44px;
@@ -255,6 +339,8 @@ svg {
   height: 24px;
   padding: 10px;
 }
+
+/* counter */
 .users {
   list-style-type: none;
   counter-reset: css-counter 0; /* initializes counter to 0; use -1 for zero-based numbering */
@@ -269,7 +355,3 @@ svg {
   content: counter(css-counter) ". "; /* Apply counter before children's content. */
 }
 
-#formupload{
-  width: 15vw;
-  margin: auto ;
-}
