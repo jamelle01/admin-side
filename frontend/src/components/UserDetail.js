@@ -4,7 +4,6 @@ import { confirm } from "react-confirm-box";
 
 // date fns
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
-import { useState } from "react";
 
 const UserDetails = ({ user }) => {
     // mao ni makita mga users sa home

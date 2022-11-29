@@ -24,7 +24,6 @@ const Home = () => {
 
     return (
         <div className='home'>
-            
             <div className='upper'>
                 <p className='semi-title'>LIST OF USERS</p>
                 <Link className='add-button' id='link' to='/add'>
