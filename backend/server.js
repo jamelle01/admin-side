@@ -5,14 +5,15 @@ const { router: userRoutes } = require("./routes/users");
 const mongoose = require("mongoose");
 
 const cloudinary = require("cloudinary").v2;
-var bodyParser = require("body-parser"); 
+var bodyParser = require("body-parser");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 
 //express app
 const app = express();
 
-cloudinary.config({ // CONNECT TO CLOUD STORAGE
+cloudinary.config({
+  // CONNECT TO CLOUD STORAGE
   cloud_name: process.env.CLOUD_NAME,
   api_key: process.env.API_KEY,
   api_secret: process.env.API_SECRET,

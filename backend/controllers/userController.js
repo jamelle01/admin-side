@@ -17,7 +17,7 @@ const getUsers = async (req, res) => {
 // get a single
 const getUser = async (req, res) => {
   const { id } = req.params;
-  
+
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ error: "No such user" });
   }
@@ -35,37 +35,44 @@ const getUser = async (req, res) => {
 const createUser = async (req, res) => {
   const { name, username, password, image } = req.body;
 
-  let emptyFields = []; //for empty checks
+  let emptyFields = []; //for empty checksilog
+  let message = "";
 
+  console.log(onlyLettersSpacesDots(name));
+
+  if (!onlyLettersSpacesDots(name)){
+    message += "Name should not contain any numbers or symbols.\n";
+    emptyFields.push("name");
+  }
+  if (username.length < 4 || username.length > 8) {
+    message += "Username must have atleast 4 letters and maximum of 8 letters.\n";
+    emptyFields.push("username");
+  }
   if (!name) {
     emptyFields.push("name");
+    message = "Please fill in the field/s";
   }
   if (!username) {
     emptyFields.push("username");
+    message = "Please fill in the field/s";
   }
   if (!password) {
     emptyFields.push("password");
-    console.log("passwordemp");
-  }
-  if (!image) {
-    emptyFields.push("image");
-    console.log("imgemp");
+    message = "Please fill in the field/s";
   }
   if (emptyFields.length > 0) {
-    console.log("enter");
     return res
       .status(400)
-      .json({ error: "Please fill in all the fields", emptyFields });
+      .json({ error: message, emptyFields });
   }
-  console.log(image);
-
 
   cloudinary.uploader // promise upload sa cloud storage
     .upload(image, {
       folder: `photos/${name}`,
       public_id: "1",
     })
-    .then((result) => { //UPLOAD SA DATABASE MONGODB
+    .then((result) => {
+      //UPLOAD SA DATABASE MONGODB
       console.log("uploaded");
       const obj = new User({
         name,
@@ -95,7 +102,7 @@ const createUser = async (req, res) => {
 const deleteUser = async (req, res) => {
   const { id } = req.params; // ID SA USER NA DELETON
   const user = await User.findById(req.params.id); //ID USER
-  const imgId = user.img.public_id;  // ID SA IMAGE
+  const imgId = user.img.public_id; // ID SA IMAGE
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ error: "No such user" });
@@ -107,26 +114,42 @@ const deleteUser = async (req, res) => {
   res.status(200).json(user);
 };
 
+function onlyLettersSpacesDots(str) {
+  return /^[a-zA-Z\s.]+$/.test(str);
+}
+
 // update
 const updateUser = async (req, res) => {
   const { name, username, password, image } = req.body;
 
   let emptyFields = []; //for empty checksilog
+  let message = "";
 
+  console.log(onlyLettersSpacesDots(name))
+  if (onlyLettersSpacesDots(name) == false){
+    message += "Name should not contain any numbers or symbols.\n";
+    emptyFields.push("name");
+  }
+  if (username.length < 4 || username.length > 8) {
+    message += "Username must have atleast 4 letters and maximum of 8 letters.\n";
+    emptyFields.push("username");
+  }
   if (!name) {
     emptyFields.push("name");
+    message = "Please fill in the field/s";
   }
   if (!username) {
     emptyFields.push("username");
+    message = "Please fill in the field/s";
   }
   if (!password) {
     emptyFields.push("password");
-    console.log("passwordemp");
+    message = "Please fill in the field/s";
   }
   if (emptyFields.length > 0) {
     return res
       .status(400)
-      .json({ error: "Please fill in all the fields", emptyFields });
+      .json({ error: message, emptyFields });
   }
 
   const { id } = req.params;
@@ -141,7 +164,8 @@ const updateUser = async (req, res) => {
       folder: `photos/${name}`,
       public_id: "1",
     }) //this return the result of uploading image
-    .then(async (result) => { // update the database
+    .then(async (result) => {
+      // update the database
       console.log("uploaded");
       const user = await User.findOneAndUpdate(
         { _id: id },
@@ -160,7 +184,6 @@ const updateUser = async (req, res) => {
     .catch((error) => {
       res.status(400).json({ error: error.message });
     });
-
 };
 
 module.exports = {
@@ -168,5 +191,5 @@ module.exports = {
   getUser,
   createUser,
   deleteUser,
-  updateUser
+  updateUser,
 };

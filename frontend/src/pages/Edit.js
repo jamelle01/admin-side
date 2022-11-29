@@ -132,7 +132,7 @@ const Edit = () => {
                     id='name'
                     onChange={(e) => setName(e.target.value)}
                     value={name}
-                    className={emptyFields.includes("name") ? "error" : ""} // if naay name sa emptyfields nga array nga naa sa form e set the classname to error
+                    className={emptyFields.includes("name") ? "error" : ""}
                 />
 
                 <label htmlFor='username'>Username: </label>
