@@ -7,6 +7,7 @@ import Webcam from "react-webcam";
 const Edit = () => {
     const { id } = useParams();
 
+    // variables
     const [name, setName] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -18,6 +19,9 @@ const Edit = () => {
     const webcamRef = useRef(null);
     const [image, setImage] = useState("");
     const [openCamera, setOpenCamera] = useState(false);
+
+    // for loading state
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         const fetchWorkouts = async () => {
@@ -70,9 +74,11 @@ const Edit = () => {
         };
     };
 
+    // submit button
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        setIsLoading(true);
         const user = { name, username, password, image };
 
         const response = await fetch(`/api/users/${id}`, {
@@ -89,6 +95,7 @@ const Edit = () => {
             setError(json.error);
             setEmptyFields(json.emptyFields); // send json the empty fields
             console.log("not ok");
+            setIsLoading(false);
         }
         if (response.ok) {
             setError(null);
@@ -97,13 +104,24 @@ const Edit = () => {
             setUsername("");
             setEmptyFields([]);
             console.log("workout updated", json);
-            // dispatch({type: 'CREATE_WORKOUT', payload: json});/
             navigate("/");
+            setIsLoading(false);
         }
     };
 
     return (
         <div className='edits'>
+            {isLoading && (
+                <div className='loading'>
+                    <div className='loadingio-spinner-pulse-k69qpabx8be'>
+                        <div className='ldio-cw45abrrsy'>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+            )}
             <form className='inputform' encType='multipart/form-data'>
                 {/* <h1>{id}</h1> */}
                 <h3>Edit User</h3>

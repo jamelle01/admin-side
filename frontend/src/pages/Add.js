@@ -16,6 +16,9 @@ const Add = () => {
     const [image, setImage] = useState("");
     const [openCamera, setOpenCamera] = useState(false);
 
+    // for loading state
+    const [isLoading, setIsLoading] = useState(false);
+
     //camera things
     const capture = useCallback(
         (e) => {
@@ -36,9 +39,6 @@ const Add = () => {
 
     const cameraClose = () => {
         setOpenCamera(false);
-        const video = document.querySelector("video");
-
-        openCamera(false);
     };
 
     const handleImage = (e) => {
@@ -58,6 +58,7 @@ const Add = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        setIsLoading(true);
         const user = { name, username, password, image };
         console.log("clicked");
 
@@ -77,6 +78,7 @@ const Add = () => {
             setError(json.error);
             setEmptyFields(json.emptyFields); // send json the empty fields
             console.log("not ok");
+            setIsLoading(false);
         }
         if (response.ok) {
             // reset mga display field
@@ -86,14 +88,25 @@ const Add = () => {
             setUsername("");
             setEmptyFields([]);
             console.log("new user added", json);
-            // dispatch({type: 'CREATE_WORKOUT', payload: json});
             navigate("/");
+            setIsLoading(false);
         }
     };
 
     return (
         <div className='create'>
             {/*mao input field if mag add user*/}
+            {isLoading && (
+                <div className='loading'>
+                    <div className='loadingio-spinner-pulse-k69qpabx8be'>
+                        <div className='ldio-cw45abrrsy'>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+            )}
             <form className='inputform' encType='multipart/form-data'>
                 <h3>Add New</h3>
 
