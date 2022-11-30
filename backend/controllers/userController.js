@@ -40,12 +40,13 @@ const createUser = async (req, res) => {
 
   console.log(onlyLettersSpacesDots(name));
 
-  if (!onlyLettersSpacesDots(name)){
+  if (!onlyLettersSpacesDots(name)) {
     message += "Name should not contain any numbers or symbols.\n";
     emptyFields.push("name");
   }
   if (username.length < 4 || username.length > 8) {
-    message += "Username must have atleast 4 letters and maximum of 8 letters.\n";
+    message +=
+      "Username must have atleast 4 letters and maximum of 8 letters.\n";
     emptyFields.push("username");
   }
   if (!name) {
@@ -61,9 +62,7 @@ const createUser = async (req, res) => {
     message = "Please fill in the field/s";
   }
   if (emptyFields.length > 0) {
-    return res
-      .status(400)
-      .json({ error: message, emptyFields });
+    return res.status(400).json({ error: message, emptyFields });
   }
 
   cloudinary.uploader // promise upload sa cloud storage
@@ -125,13 +124,14 @@ const updateUser = async (req, res) => {
   let emptyFields = []; //for empty checksilog
   let message = "";
 
-  console.log(onlyLettersSpacesDots(name))
-  if (onlyLettersSpacesDots(name) == false){
+  console.log(onlyLettersSpacesDots(name));
+  if (onlyLettersSpacesDots(name) == false) {
     message += "Name should not contain any numbers or symbols.\n";
     emptyFields.push("name");
   }
   if (username.length < 4 || username.length > 8) {
-    message += "Username must have atleast 4 letters and maximum of 8 letters.\n";
+    message +=
+      "Username must have atleast 4 letters and maximum of 8 letters.\n";
     emptyFields.push("username");
   }
   if (!name) {
@@ -147,9 +147,7 @@ const updateUser = async (req, res) => {
     message = "Please fill in the field/s";
   }
   if (emptyFields.length > 0) {
-    return res
-      .status(400)
-      .json({ error: message, emptyFields });
+    return res.status(400).json({ error: message, emptyFields });
   }
 
   const { id } = req.params;
