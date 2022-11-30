@@ -40,6 +40,13 @@ const createUser = async (req, res) => {
 
   console.log(onlyLettersSpacesDots(name));
 
+  const nameExists = await User.findOne({ name });
+
+  if (nameExists) {
+    message += "Name already exists.\n";
+    emptyFields.push("name");
+  }
+
   if (!onlyLettersSpacesDots(name)) {
     message += "Name should not contain any numbers or symbols.\n";
     emptyFields.push("name");

@@ -1,7 +1,8 @@
 require("dotenv").config();
 
 const express = require("express");
-const { router: userRoutes } = require("./routes/users");
+const  {router: userRoutes}  = require("./routes/users");
+const  {router: adminRoutes} = require("./routes/admin");
 const mongoose = require("mongoose");
 
 const cloudinary = require("cloudinary").v2;
@@ -38,7 +39,8 @@ app.use(
 app.use(cookieParser());
 app.use(cors());
 //routes
-app.use("/api/users", userRoutes);
+app.use("/api/users", userRoutes); //for users
+app.use("/api/admin", adminRoutes); //for system admin
 
 // connect to db
 mongoose
