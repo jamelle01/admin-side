@@ -1,10 +1,6 @@
 const User = require("../models/userModel");
 const mongoose = require("mongoose");
 
-const express = require("express");
-const app = express();
-
-var path = require("path");
 var cloudinary = require("cloudinary").v2;
 
 // get all
@@ -51,9 +47,8 @@ const createUser = async (req, res) => {
     message += "Name should not contain any numbers or symbols.\n";
     emptyFields.push("name");
   }
-  if (username.length < 4 ) {
-    message +=
-      "Username must have atleast 4 letters.\n";
+  if (username.length < 4) {
+    message += "Username must have atleast 4 letters.\n";
     emptyFields.push("username");
   }
   if (!name) {
@@ -136,9 +131,8 @@ const updateUser = async (req, res) => {
     message += "Name should not contain any numbers or symbols.\n";
     emptyFields.push("name");
   }
-  if (username.length < 4 ) {
-    message +=
-      "Username must have atleast 4 letters.\n";
+  if (username.length < 4) {
+    message += "Username must have atleast 4 letters.\n";
     emptyFields.push("username");
   }
   if (!name) {
