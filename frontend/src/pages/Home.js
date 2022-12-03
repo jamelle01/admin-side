@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useUsersContext } from "../hooks/useUsersContext";
 import { Link } from "react-router-dom";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 // components
 import UserDetails from "../components/UserDetail";
@@ -10,17 +11,25 @@ const Home = () => {
   const { users, dispatch } = useUsersContext();
   const [query, setQuery] = useState("");
 
+  const { admin } = useAuthContext();
+
   useEffect(() => {
     const fetchWorkouts = async () => {
-      const response = await fetch("/api/users");
+      const response = await fetch("/api/users", {
+        headers: {
+          Authorization: `Bearer ${admin.token}`,
+        },
+      });
       const json = await response.json();
       if (response.ok) {
         dispatch({ type: "SET_USERS", payload: json }); // this the action that gonna pyr in the workoutcontext
       }
     };
 
-    fetchWorkouts();
-  }, [dispatch]); //usefetch
+    if (admin) {
+      fetchWorkouts();
+    }
+  }, [dispatch, admin]); //usefetch
 
   return (
     <div className='home'>
@@ -58,6 +67,15 @@ const Home = () => {
           <p></p>
           <p></p>
         </div>
+        {!users && 
+        <div style={
+          {
+            backgroundColor: "white",
+            textAlign: "center",
+            padding: "5px"
+            
+          }
+        }>database is empty</div>}
         {users &&
           users
             .filter(

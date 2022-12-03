@@ -350,7 +350,7 @@ svg {
 }
 
 .users .num {
-  margin-left: 2vw;
+  padding-left: 2vw;
   counter-increment: css-counter 1; /* Increase the counter by 1. */
 }
 
@@ -473,4 +473,45 @@ svg {
   position: absolute;
   /* top: 15%; */
   z-index: 10001;
+}
+
+/* navbar */
+nav {
+  display: flex;
+  align-items: center;
+}
+nav a {
+  margin-left: 10px;
+}
+/* auth forms */
+form.signup, form.login {
+  display: grid;
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.596);
+  border-radius: 4px;
+}
+
+.in-btn{
+  margin-top: 10px;
+  background: #1aac83;
+  padding: 10px;
+  color: white;
+  border: none;
+  border-radius: 10px 10px;
+  font-size: large;
+  cursor: pointer;
+}
+
+button:active{
+  transform: scale(1.02);
+}
+
+.log{
+  color: white;
+  font-weight: bold;
+  font-size: 30px;
+  background-color: #1aac8300;
+  border: none;
 }

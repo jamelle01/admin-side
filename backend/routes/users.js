@@ -11,6 +11,11 @@ const {
   updateUser,
 } = require("../controllers/userController");
 
+const requireAuth = require("../middleware/requireAuth");
+
+// reqire auth for all routes
+router.use(requireAuth);
+
 // GET all
 router.get("/", getUsers);
 

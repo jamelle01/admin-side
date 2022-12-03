@@ -1,5 +1,6 @@
 import { useState, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 import Webcam from "react-webcam";
 
@@ -10,6 +11,8 @@ const Add = () => {
   const [error, setError] = useState(null);
   const [emptyFields, setEmptyFields] = useState([]);
   const navigate = useNavigate();
+
+  const {admin} = useAuthContext();
 
   //image
   const webcamRef = useRef(null);
@@ -57,6 +60,12 @@ const Add = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // check if admin 
+    if (!admin) {
+      setError("You must be logged in");
+      return;
+    }
+
     setIsLoading(true);
     const user = { name, username, password, image };
     console.log("clicked");
@@ -67,6 +76,7 @@ const Add = () => {
       body: JSON.stringify(user),
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${admin.token}`,
       },
     });
     console.log("wait");

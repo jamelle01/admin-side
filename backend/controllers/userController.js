@@ -51,9 +51,9 @@ const createUser = async (req, res) => {
     message += "Name should not contain any numbers or symbols.\n";
     emptyFields.push("name");
   }
-  if (username.length < 4 || username.length > 8) {
+  if (username.length < 4 ) {
     message +=
-      "Username must have atleast 4 letters and maximum of 8 letters.\n";
+      "Username must have atleast 4 letters.\n";
     emptyFields.push("username");
   }
   if (!name) {
@@ -136,9 +136,9 @@ const updateUser = async (req, res) => {
     message += "Name should not contain any numbers or symbols.\n";
     emptyFields.push("name");
   }
-  if (username.length < 4 || username.length > 8) {
+  if (username.length < 4 ) {
     message +=
-      "Username must have atleast 4 letters and maximum of 8 letters.\n";
+      "Username must have atleast 4 letters.\n";
     emptyFields.push("username");
   }
   if (!name) {
