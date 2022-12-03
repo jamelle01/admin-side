@@ -483,6 +483,14 @@ nav {
 nav a {
   margin-left: 10px;
 }
+.log{
+  color: white;
+  font-weight: bold;
+  font-size: 30px;
+  background-color: #1aac8300;
+  border: none;
+  cursor: pointer;
+}
 /* auth forms */
 form.signup, form.login {
   display: grid;
@@ -508,10 +516,3 @@ button:active{
   transform: scale(1.02);
 }
 
-.log{
-  color: white;
-  font-weight: bold;
-  font-size: 30px;
-  background-color: #1aac8300;
-  border: none;
-}
