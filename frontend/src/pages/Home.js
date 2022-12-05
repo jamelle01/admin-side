@@ -12,7 +12,7 @@ const Home = () => {
   const [query, setQuery] = useState("");
 
   const { admin } = useAuthContext();
-
+  
   useEffect(() => {
     const fetchWorkouts = async () => {
       const response = await fetch("/api/users", {

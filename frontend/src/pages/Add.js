@@ -160,7 +160,7 @@ const Add = () => {
 
         <div>
           {openCamera && (
-            <div className='camera'>
+            <div className='camera' >
               <span
                 className='exit material-symbols-outlined'
                 onClick={cameraClose}

@@ -1,0 +1,1 @@
+  console.log(imgId.substring(0,imgId.length-1));

@@ -186,7 +186,7 @@ const Edit = () => {
 
         <div>
           {openCamera && (
-            <div className='camera'>
+            <div className='camera imgbtns'>
               <span
                 className='exit material-symbols-outlined'
                 onClick={cameraClose}

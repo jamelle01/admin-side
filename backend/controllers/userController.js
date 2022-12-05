@@ -34,13 +34,16 @@ const createUser = async (req, res) => {
   let emptyFields = []; //for empty checksilog
   let message = "";
 
-  console.log(onlyLettersSpacesDots(name));
-
   const nameExists = await User.findOne({ name });
+  const usernameExists = await User.findOne({ username });
 
   if (nameExists) {
     message += "Name already exists.\n";
     emptyFields.push("name");
+  }
+  if (usernameExists) {
+    message += "Username already exists.\n";
+    emptyFields.push("username");
   }
 
   if (!onlyLettersSpacesDots(name)) {
@@ -63,13 +66,17 @@ const createUser = async (req, res) => {
     emptyFields.push("password");
     message = "Please fill in the field/s";
   }
+  if (!image) {
+    emptyFields.push("image");
+    message = "Please fill in the field/s";
+  }
   if (emptyFields.length > 0) {
     return res.status(400).json({ error: message, emptyFields });
   }
 
   cloudinary.uploader // promise upload sa cloud storage
     .upload(image, {
-      folder: `photos/${name}`,
+      folder: `photos/${username}`,
       public_id: "1",
     })
     .then((result) => {
@@ -109,6 +116,7 @@ const deleteUser = async (req, res) => {
     return res.status(400).json({ error: "No such user" });
   }
 
+  
   await cloudinary.uploader.destroy(imgId); // delete the image from the cloudstorage
   const rmUser = await User.findByIdAndDelete(req.params.id); // delete data in database
 
@@ -119,6 +127,10 @@ function onlyLettersSpacesDots(str) {
   return /^[a-zA-Z\s.]+$/.test(str);
 }
 
+function onlyLetters(str) {
+  return /^[a-zA-Z]+$/.test(str);
+}
+
 // update
 const updateUser = async (req, res) => {
   const { name, username, password, image } = req.body;
@@ -126,13 +138,16 @@ const updateUser = async (req, res) => {
   let emptyFields = []; //for empty checksilog
   let message = "";
 
-  console.log(onlyLettersSpacesDots(name));
   if (onlyLettersSpacesDots(name) == false) {
     message += "Name should not contain any numbers or symbols.\n";
     emptyFields.push("name");
   }
   if (username.length < 4) {
     message += "Username must have atleast 4 letters.\n";
+    emptyFields.push("username");
+  }
+  if (onlyLetters(username) == false) {
+    message += "Username must have letters only.\n";
     emptyFields.push("username");
   }
   if (!name) {
@@ -147,9 +162,14 @@ const updateUser = async (req, res) => {
     emptyFields.push("password");
     message = "Please fill in the field/s";
   }
+  if (!image) {
+    emptyFields.push("image");
+    message = "Please fill in the field/s";
+  }
   if (emptyFields.length > 0) {
     return res.status(400).json({ error: message, emptyFields });
   }
+
 
   const { id } = req.params;
 
@@ -159,8 +179,8 @@ const updateUser = async (req, res) => {
 
   // promise to upload
   cloudinary.uploader
-    .upload(image, {
-      folder: `photos/${name}`,
+    .upload(image,{
+      folder: `photos/${username}`,
       public_id: "1",
     }) //this return the result of uploading image
     .then(async (result) => {

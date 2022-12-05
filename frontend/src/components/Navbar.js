@@ -13,7 +13,7 @@ const Navbar = () => {
   return (
     <header>
       <div className='container'>
-        <Link to='/'>
+        <Link className="h" to='/'>
           <h1>ADMIN CONTROL</h1>
         </Link>
 
