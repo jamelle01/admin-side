@@ -59,6 +59,10 @@ header a {
 }
 /* homepage */
 .h:active{
+  transform: scale(1.01);
+  color: rgba(0, 0, 255, 0.761);
+}
+.h:hover{
   color: rgba(0, 0, 255, 0.761);
 }
 

@@ -21,7 +21,9 @@ const Navbar = () => {
           {}
           {admin && (
             <div>
-              <button className="log" onClick={handleClick}> Log out</button>
+              <button className="log" onClick={handleClick}><span class="material-symbols-outlined">
+logout
+</span> Log out</button>
             </div>
           )}
           {!admin && (
