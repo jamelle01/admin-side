@@ -5,12 +5,10 @@ import { useAuthContext } from "../hooks/useAuthContext";
 
 // components
 import UserDetails from "../components/UserDetail";
-// import WorkoutForm from '../components/WorkoutForm';
 
 const Home = () => {
   const { users, dispatch } = useUsersContext();
   const [query, setQuery] = useState("");
-
   const { admin } = useAuthContext();
   
   useEffect(() => {
@@ -22,7 +20,7 @@ const Home = () => {
       });
       const json = await response.json();
       if (response.ok) {
-        dispatch({ type: "SET_USERS", payload: json }); // this the action that gonna pyr in the workoutcontext
+        dispatch({ type: "SET_USERS", payload: json }); // this the action that gonna pyr in the usercontext
       }
     };
 
@@ -36,7 +34,7 @@ const Home = () => {
       <div className='upper'>
         <p className='semi-title'>LIST OF USERS</p>
         <Link className='add-button' id='link' to='/add'>
-          add user{" "}
+          <span>ADD USER</span>
         </Link>
 
         <form id='searchform'>
@@ -87,7 +85,7 @@ const Home = () => {
               <UserDetails key={user._id} user={user} /> //
             ))}
       </div>
-      {/* <WorkoutForm/> */}
+      {/* Form/> */}
     </div>
   ); // return
 };

@@ -1,7 +1,9 @@
 const mongoose = require("mongoose");
+//a library for generating and comparing hash-based passwords.
 const bcrypt = require("bcrypt");
+//  a library for validating strings against various rules
 const validator = require("validator");
-
+//used to define the shape of documents in a MongoDB collection
 const Schema = mongoose.Schema;
 
 const adminSchema = new Schema({
@@ -22,9 +24,6 @@ adminSchema.statics.signup = async function (username, password) {
   if (!username || !password) {
     throw Error("All fields must be filled");
   }
-  // if (!validator.isEmail(username)) {
-  //   throw Error('Username is not valid')
-  // }
   if (!validator.isStrongPassword(password)) {
     throw Error("Password not strong enough");
   }

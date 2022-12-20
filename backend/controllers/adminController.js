@@ -1,4 +1,7 @@
+//import from admin model
 const Admin = require("../models/adminModel");
+
+// import token used to authenticate users and authorize access to protected resources
 const jwt = require("jsonwebtoken");
 
 const createToken = (_id) => {

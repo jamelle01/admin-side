@@ -1,16 +1,23 @@
+//  load environment variables from a .env file 
 require("dotenv").config();
-
 const express = require("express");
 const  {router: userRoutes}  = require("./routes/users");
 const  {router: adminRoutes} = require("./routes/admin");
+
+//library is used to connect to a MongoDB database
 const mongoose = require("mongoose");
 
+//used to interact with the Cloudinary API
 const cloudinary = require("cloudinary").v2;
+
+//used to parse the body of HTTP requests
 var bodyParser = require("body-parser");
+// enable Cross-Origin Resource Sharing (CORS)
 const cors = require("cors");
+//  used to parse HTTP cookies
 const cookieParser = require("cookie-parser");
 
-//express app
+// used to configure the server and define routes and middleware.
 const app = express();
 
 cloudinary.config({
@@ -20,13 +27,13 @@ cloudinary.config({
   api_secret: process.env.API_SECRET,
 });
 
-//middleware
+//middleware print purpose
 app.use((req, res, next) => {
   console.log(req.path, req.method);
   next();
 });
 
-// IMAGE STORAGE LIMIT
+// IMAGE STORAGE LIMIT photo
 app.use(bodyParser.json({ limit: "100mb" }));
 app.use(
   bodyParser.urlencoded({

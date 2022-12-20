@@ -1,6 +1,7 @@
 const User = require("../models/userModel");
+// use to connect to a MongoDB database
 const mongoose = require("mongoose");
-
+// use it to upload, transform, and manage media files
 var cloudinary = require("cloudinary").v2;
 
 // get all

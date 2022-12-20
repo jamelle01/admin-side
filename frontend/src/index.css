@@ -86,6 +86,8 @@ header a {
 
 /* add button */
 .add-button {
+  display: flex;
+  align-items: center;
   height: 30px;
   text-decoration: none;
   background-color: #ff5c00;
@@ -97,8 +99,7 @@ header a {
   color: white;
   font-size: 1em;
   font-weight: bold;
-  text-align: center;
-  padding: 5px 5px 3px 5px;
+  padding: 20px auto;
 }
 
 .add-button:active{
@@ -565,6 +566,9 @@ nav a {
 .log:active{
   color: rgba(0, 0, 255, 0.734);
   transform: scale(1.1);
+}
+.log:hover{
+  color: rgba(0, 0, 255, 0.734);
 }
 /* auth forms */
 form.signup, form.login {
